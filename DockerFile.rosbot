@@ -1,0 +1,44 @@
+FROM ros:humble-ros-base
+
+USER root
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        python3-smbus \
+        i2c-tools \
+        python3-serial \ 
+        python3-rosdep \
+        ros-humble-example-interfaces \
+        ros-humble-joint-state-publisher \
+        ros-humble-joint-state-publisher-gui \
+        ros-humble-navigation2 \
+        ros-humble-nav2-bringup \
+        ros-humble-slam-toolbox \
+        ros-humble-robot-localization \
+        ros-humble-tf2-tools \
+        ros-humble-foxglove-bridge \
+        python3-pigpio \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN rosdep init || true
+
+# (Optional) make UID 1000 exist so you don’t see "I have no name!"
+ARG UID=1000
+ARG GID=1000
+RUN groupadd -g ${GID} dev || true && useradd -m -u ${UID} -g ${GID} dev
+
+# Optional: define common groups with readable names and add the user
+RUN groupadd -g 20 dialout || true \
+ && groupadd -g 44 video || true \
+ && groupadd -g 986 gpio || true \
+ && groupadd -g 988 i2c || true \
+ && groupadd -g 989 spi || true \
+ && usermod -aG dialout,video,gpio,i2c,spi dev
+
+
+# Auto‑source ROS and your workspace for all interactive shells
+RUN echo "source /opt/ros/humble/setup.bash" >> /etc/bash.bashrc
+RUN echo "if [ -f /workspaces/roomba_robot/install/setup.bash ]; then source /workspaces/roomba_robot/install/setup.bash; fi" >> /etc/bash.bashrc
+
+USER dev
+WORKDIR /workspaces

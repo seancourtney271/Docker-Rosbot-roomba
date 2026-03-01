@@ -1,0 +1,6 @@
+*.log
+*.pickle
+*.cache
+build/
+install/
+log/

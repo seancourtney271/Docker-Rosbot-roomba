@@ -1,0 +1,158 @@
+<robot name="roomba_bot">
+  <!-- Base link with geometry -->
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="0.12 0.1 0.066"/>
+      </geometry>
+      <material name="blue">
+        <color rgba="0 0 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.12 0.1 0.066"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Wheel links -->
+  <link name="front_left_wheel_link">
+    <visual>
+      <geometry>
+        <cylinder radius="0.032" length="0.026"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0 0 0 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.032" length="0.026"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="front_right_wheel_link">
+    <visual>
+      <geometry>
+        <cylinder radius="0.032" length="0.026"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0 0 0 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.032" length="0.026"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="back_left_wheel_link">
+    <visual>
+      <geometry>
+        <cylinder radius="0.032" length="0.026"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0 0 0 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.032" length="0.026"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="back_right_wheel_link">
+    <visual>
+      <geometry>
+        <cylinder radius="0.032" length="0.026"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0 0 0 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.032" length="0.026"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Wheel joints -->
+  <joint name="front_left_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="front_left_wheel_link"/>
+    <origin xyz="0.038 0.062 -0.01" rpy="1.57 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <joint name="front_right_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="front_right_wheel_link"/>
+    <origin xyz="0.038 -0.062 -0.01" rpy="1.57 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <joint name="back_left_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="back_left_wheel_link"/>
+    <origin xyz="-0.038 0.062 -0.01" rpy="1.57 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <joint name="back_right_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="back_right_wheel_link"/>
+    <origin xyz="-0.038 -0.062 -0.01" rpy="1.57 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <!-- LiDAR link -->
+  <link name="lidar_link">
+    <visual>
+      <geometry>
+        <cylinder radius="0.05" length="0.05"/>
+      </geometry>
+      <material name="red">
+        <color rgba="1 0 0 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.05" length="0.05"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="lidar_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="lidar_link"/>
+    <origin xyz="0.0 0.0 0.05" rpy="0 0 0"/>
+  </joint>
+
+  <!-- IMU link -->
+  <link name="imu_link"/>
+
+  <joint name="imu_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="imu_link"/>
+    <origin xyz="0.0 0.0 0.05" rpy="0 0 0"/>
+  </joint>
+
+  <gazebo>
+    <plugin name="gazebo_ros_laser" filename="libgazebo_ros_laser.so">
+      <topicName>/scan</topicName>
+      <frameName>lidar_link</frameName>
+    </plugin>
+  </gazebo>
+
+  <gazebo>
+    <plugin name="gazebo_ros_imu" filename="libgazebo_ros_imu.so">
+      <topicName>/imu/data</topicName>
+      <frameName>imu_link</frameName>
+    </plugin>
+  </gazebo>
+</robot>

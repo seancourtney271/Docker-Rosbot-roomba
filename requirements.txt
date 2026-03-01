@@ -1,0 +1,9 @@
+# pip-only Python packages
+pyserial>=3.4
+pytest
+setuptools
+sphinx
+sphinx-rtd-theme
+colcon-common-extensions
+# If you need SMBus in pure Python, prefer:
+# smbus2

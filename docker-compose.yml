@@ -1,0 +1,58 @@
+# docker-compose.yml
+services:
+
+
+  rosbot:
+    build:
+      context: .
+      dockerfile: DockerFile.rosbot
+    image: rosbot:humble-custom
+    container_name: rosbot
+    hostname: rpi4-ros
+    network_mode: host           # ROS 2 discovery across LAN, no port fiddling [7](https://linuxcommandlibrary.com/man/v4l2-ctl)
+    ipc: host                    # allow Fast-DDS SHM transport with host [7](https://linuxcommandlibrary.com/man/v4l2-ctl)
+
+    # Map the most common devices; add/remove as needed. Each --device is the
+    # supported and least-privilege way to expose host devices. [1](https://docs.docker.com/reference/cli/docker/container/run/)
+    devices:
+      - /dev/ttyUSB0:/dev/ttyUSB0
+      # - /dev/ttyACM0:/dev/ttyACM0
+      - /dev/i2c-1:/dev/i2c-1
+      # - /dev/gpiomem:/dev/gpiomem          # older Pi models (0–4) [3](https://raspberrypi.stackexchange.com/questions/40105/access-gpio-pins-without-root-no-access-to-dev-mem-try-running-as-root)
+      # - /dev/gpiochip0:/dev/gpiochip0      # Pi 5 (RP1) uses gpiochips/gpiomemN [4](https://wiki.gentoo.org/wiki/User:Brushdemon/Raspberry_Pi_GPIO)
+      # - /dev/gpiochip1:/dev/gpiochip1
+      # - /dev/video0:/dev/video0            # V4L2 camera device [6](https://www.kernel.org/doc/html/latest/userspace-api/media/v4l/v4l2.html)
+
+    # Optional: if your camera shows up as /dev/video1 or you have multiple,
+    # add them here.
+
+    environment:
+      ROS_DOMAIN_ID: 0
+      ROS_LOCALHOST_ONLY: "0"
+      HOME: /workspaces
+      ROS_HOME: /workspaces/.ros
+      ROS_LOG_DIR: /workspaces/.ros/log
+      PIGPIO_ADDR: 127.0.0.1      # pigpio Python client will use localhost
+      PIGPIO_PORT: 8888           # default pigpiod port
+
+      # RMW_IMPLEMENTATION: rmw_cyclonedds_cpp   # optional alternative DDS
+
+    # Keep artifact ownership sane when bind-mounting workspaces
+    user: "${LOCAL_UID:-1000}:${LOCAL_GID:-1000}"
+
+    group_add:
+      - "20" # Dialout
+      - "44" # Video
+      - "986" # GPIO
+      - "988" # I2C
+      - "989" # SPI
+
+
+    volumes:
+      - ./roomba_robot:/workspaces/roomba_robot
+      - ./dotros:/workspaces/.ros
+
+    # Default: idle shell; you can replace with your bringup later.
+    command: [ "bash", "-lc", "sleep infinity" ]
+
+    restart: unless-stopped
