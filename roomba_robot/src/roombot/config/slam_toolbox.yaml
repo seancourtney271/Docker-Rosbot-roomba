@@ -1,24 +1,11 @@
 slam_toolbox:
   ros__parameters:
-    # Frames
-    odom_frame: "odom"
-    base_frame: "base_link"
-    map_frame: "map"
-
-    # Laser
-    scan_topic: "scan"
-
-    # General mapping mode
-    mode: "mapping"
-    use_scan_matching: true
-    use_loop_closing: true
-
-    # Timing / buffering to avoid message filter drops
-    transform_timeout: 0.2          # seconds to wait for TF lookups
-    tf_buffer_duration: 10.0        # keep TFs around for lookups
-    queue_size: 10                   # enlarge message filter queue
-    throttle_scans: 1               # process every scan
-
-    # Publish rate
-    transform_publish_period: 0.05
-    map_update_interval: 2.0
+    use_sim_time: false
+    slam_params_file: ""  # leave blank unless chaining
+    base_frame: base_link
+    odom_frame: odom
+    map_frame: map
+    scan_topic: /scan
+    # Increase tolerance if your TF is slightly delayed
+    transform_time_offset: 0.02
+    tf_buffer_duration: 10.0

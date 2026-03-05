@@ -100,9 +100,10 @@ def generate_launch_description():
             launch_arguments={
                 'slam': 'True',
                 'use_sim_time': 'False',
-                'params_file': nav2_config
+                'params_file': os.path.join(pkg, 'config', 'slam_toolbox.yaml'),
             }.items()
         ),
+
         Node(
             package="foxglove_bridge",
             executable="foxglove_bridge",
