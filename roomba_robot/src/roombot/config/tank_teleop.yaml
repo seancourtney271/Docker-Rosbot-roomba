@@ -1,0 +1,11 @@
+tank_teleop_node:
+  ros__parameters:
+    left_axis: 1
+    right_axis: 4
+    deadman_button: 4     # L1
+    estop_button: 1       # Circle
+    scale: 1.0
+    deadzone: 0.08
+    expo: 0.25
+    slew_rate: 3.0
+    joy_timeout: 0.5

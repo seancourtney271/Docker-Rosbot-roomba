@@ -48,7 +48,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'teleop_keyboard = roombot.teleop_keyboard:main',
+            'teleop_ps4 = roombot.teleop_ps4_controller:main',
             'encoder_odom_node = roombot.encoder_odom_node:main',
         ],
     },

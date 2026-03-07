@@ -20,12 +20,12 @@ DEFAULT_GPIO_LEFT_B  = 6
 # Encoder electrical CPR at motor shaft (signals per rev * 4 if using 4x decoding)
 # Your product image says "11 signals/turn per channel"; with 4x decoding, start with 44 CPR motor.
 DEFAULT_CPR_MOTOR = 44
-DEFAULT_GEAR_RATIO = 30.0  # set your gearbox ratio
+DEFAULT_GEAR_RATIO = 15.5454  
 DEFAULT_CPR_WHEEL = DEFAULT_CPR_MOTOR * DEFAULT_GEAR_RATIO  # ticks per wheel revolution (4x)
 
 # Geometry
-DEFAULT_WHEEL_DIAMETER = 0.065   # 65 mm wheel
-DEFAULT_TRACK_WIDTH    = 0.16    # distance between wheel contact patches (m) - measure yours!
+DEFAULT_WHEEL_DIAMETER = 0.0662   # 66.2 mm wheel
+DEFAULT_TRACK_WIDTH    = 0.23495 # 9.25 Inches    # distance between wheel contact patches (m) - measure yours!
 
 # Filters
 DEFAULT_GLITCH_US = 100          # 100 µs to tame motor noise; reduce if missing pulses

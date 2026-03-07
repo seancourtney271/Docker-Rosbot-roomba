@@ -17,6 +17,7 @@ RUN apt-get update && \
         ros-humble-robot-localization \
         ros-humble-tf2-tools \
         ros-humble-foxglove-bridge \
+        ros-humble-joy \
         python3-pigpio \
     && rm -rf /var/lib/apt/lists/*
 

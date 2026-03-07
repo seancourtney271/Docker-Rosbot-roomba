@@ -1,0 +1,10 @@
+l298n_driver_node:
+  ros__parameters:
+    left_in1: 5
+    left_in2: 6
+    left_en: 12
+    right_in1: 13
+    right_in2: 16
+    right_en: 18
+    pwm_freq_hz: 1000
+    cmd_timeout: 0.5
