@@ -4,6 +4,15 @@ USER root
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
+    # --- Core utilities & debugging ---
+        sudo locales tzdata ca-certificates \
+        curl wget git vim nano less jq \
+        iproute2 net-tools dnsutils \
+        strace lsof psmisc procps \
+        usbutils pciutils udev \
+        coreutils bsdmainutils \
+        libevdev-tools evtest joystick input-utils \
+        # ROS2 developer packages
         python3-smbus \
         i2c-tools \
         python3-serial \ 

@@ -14,7 +14,8 @@ setup(
             'launch/robot_description.launch.py', 
             'launch/combined_robot.launch.py',
             'launch/test_combined_sensors.launch.py',
-            'launch/nav2_bringup.launch.py'
+            'launch/nav2_bringup.launch.py',
+            'launch/test_tank_teleop.launch.py'
         ]),
         ('share/' + package_name + '/urdf', [
             'urdf/roombot.urdf',
@@ -36,6 +37,9 @@ setup(
             'config/mapper_params_online_async.yaml',
             'config/ekf.yaml',
             'config/slam_toolbox.yaml',
+            'config/l298n_pins.yaml',
+            'config/tank_teleop.yaml',
+            'config/joy_params.yaml',
         ]),
         ('share/' + package_name + '/maps', []),
     ],
@@ -49,6 +53,7 @@ setup(
     entry_points={
         'console_scripts': [
             'teleop_ps4 = roombot.teleop_ps4_controller:main',
+            'l298n_motor_driver = roombot.l298N_motor_driver:main',
             'encoder_odom_node = roombot.encoder_odom_node:main',
         ],
     },

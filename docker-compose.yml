@@ -16,6 +16,7 @@ services:
     # supported and least-privilege way to expose host devices. [1](https://docs.docker.com/reference/cli/docker/container/run/)
     devices:
       - /dev/ttyUSB0:/dev/ttyUSB0
+      - /dev/input/js0:/dev/input/js0:rwm
       # - /dev/ttyACM0:/dev/ttyACM0
       - /dev/i2c-1:/dev/i2c-1
       # - /dev/gpiomem:/dev/gpiomem          # older Pi models (0–4) [3](https://raspberrypi.stackexchange.com/questions/40105/access-gpio-pins-without-root-no-access-to-dev-mem-try-running-as-root)
@@ -46,6 +47,7 @@ services:
       - "986" # GPIO
       - "988" # I2C
       - "989" # SPI
+      - "996" # JOY Controller
 
 
     volumes:

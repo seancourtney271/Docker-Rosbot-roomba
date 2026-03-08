@@ -1,10 +1,21 @@
 l298n_driver_node:
   ros__parameters:
-    left_in1: 5
-    left_in2: 6
-    left_en: 12
-    right_in1: 13
-    right_in2: 16
-    right_en: 18
-    pwm_freq_hz: 1000
+    # BCM pins (adjust to your wiring)
+    ENA_MA: 12  # PWM-capable recommended
+    IN1_MA: 24
+    IN2_MA: 23        
+    ENB_MB: 13  # PWM-capable recommended
+    IN3_MB: 26
+    IN4_MB: 16       
+
+    pwm_freq_hz: 2000  # 2 kHz; try 5–20 kHz to reduce audible whine
     cmd_timeout: 0.5
+    brake_on_zero: false
+    invert_left: false
+    invert_right: false
+    min_duty: 0.08     # helps overcome static friction; tune 0.05..0.15
+
+    # If pigpiod runs on the host and you're in Docker with --net=host,
+    # leave host empty. Otherwise, set host to the host IP.
+    pigpio_host: ""
+    pigpio_port: 8888
